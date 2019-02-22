@@ -4,7 +4,7 @@ A MATALB toolbox for working with micro CT images.
 ## Installation
 
 ### From Binary Toolbox
-Download the [current binary release]() and open `microCT-v1.0.0.mltbx` in MATLAB to install the toolbox.
+Download the [current binary release](https://github.com/ithron/microCT-Toolbox/releases/download/v1.0.0/microCT-v1.0.0.mltbx) and open `microCT-v1.0.0.mltbx` in MATLAB to install the toolbox.
 
 ### From Repository
 Clone this repository and initialize all submodules with
