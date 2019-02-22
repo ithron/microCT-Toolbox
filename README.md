@@ -1,6 +1,20 @@
 # microCT-Toolbox
 A MATALB toolbox for working with micro CT images.
 
+## Installation
+
+### From Binary Toolbox
+Download the [current binary release]() and open `microCT-v1.0.0.mltbx` in MATLAB to install the toolbox.
+
+### From Repository
+Clone this repository and initialize all submodules with
+```
+git submodule update --init
+```
+In the *toolbox* folder open `microCT.prj` in MATLAB and click package.
+Open the generated `microCT.mltbx` file in matlab to install the toolbox.
+
+
 ## Cortex Segmentation
 
 ### Input
