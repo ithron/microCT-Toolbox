@@ -21,6 +21,8 @@ c = floor(size(volume) / 2);
 microCT.plotSegmentation(volume(:, :, c(3)), perioMask(:, :, c(3)), endoMask(:, :, c(3));
 ```
 
+![Example segmentation output](https://raw.githubusercontent.com/ithron/microCT-Toolbox/master/images/muCTSegmentationExample.png?token=AAMZhQeOC3Zw71zn_jph7fas0JFh_LOVks5ceTNCwA%3D%3D)
+
 ### Method
 The method used to segment the cortical bone is based on ["Automatic segmentation of cortical and trabecular compartments based on a dual threshold technique for in vivo micro-CT bone analysis" by Buie et al. (2007)](https://www.sciencedirect.com/science/article/pii/S8756328207005558?via%3Dihub).
 The implementation in this toolbox uses 3D operations on the complete volume, not only 2D operations on a per-slice base.
@@ -69,6 +71,8 @@ patch('vertices', V, 'faces', F, 'edgeColor', 'none', 'facecolor', 'interp', 'fa
 light;
 axis equal off
 ```
+
+![Example mesh output](https://github.com/ithron/microCT-Toolbox/raw/master/images/muCTMeshExample.png)
 
 ### Method
 If optional smoothing is enabled the signed distance field to the cortex center is first smoothed using a 3D gaussian filter.
