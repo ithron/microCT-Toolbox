@@ -42,9 +42,9 @@ oldPath = addpath(sprintf('%s/iso2mesh/', rootDir));
 % Mesh volume
 r = max(size(cortexCenterDist))^3 / 2;
 c = size(cortexCenterDist) / 2;
-[V, F] = microCT.iso2mesh.vol2restrictedtri(double(cortexCenterDist), -1e-9, c, r, 30, 2, 2, 50000);
+[V, F] = vol2restrictedtri(double(cortexCenterDist), -1e-9, c, r, 30, 2, 2, 50000);
 
-% path(oldPath);
+path(oldPath);
 
 % Undo scaling
 V = (V + 1) / scale - 0.5;
