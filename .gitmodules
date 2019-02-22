@@ -4,3 +4,6 @@
 [submodule "+microCT/iso2mesh"]
 	path = +microCT/iso2mesh
 	url = git@github.com:ithron/iso2mesh.git
+[submodule "toolbox/+microCT/iso2mesh"]
+	path = toolbox/+microCT/iso2mesh
+	url = https://github.com/ithron/iso2mesh.git
