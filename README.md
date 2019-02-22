@@ -73,5 +73,5 @@ axis equal off
 ### Method
 If optional smoothing is enabled the signed distance field to the cortex center is first smoothed using a 3D gaussian filter.
 Next [iso2mesh](http://iso2mesh.sourceforge.net) is used to extract the iso-surface at zero distance to the cortex center.
-Since iso2mesh does only support volumes up to 1 giga voxel, the volume may be scaled down to that size. In this case it is important to specify a smoothing to avoid aliasing. The resulting mesh is scan scaled up to match the size of the input volume.
-Cortical thickness values are obtained by cubcic interpolation of the Ct.Th. field at the vertex position of the iso-surface mesh.
+Since iso2mesh does only support volumes up to 1 giga voxels, the volume may be scaled down to that size. In this case it is important to specify a smoothing to avoid aliasing. The resulting mesh is then scaled up to match the size of the input volume.
+Cortical thickness values are obtained by cubcic interpolation of the Ct.Th. field at the vertex positions of the iso-surface mesh.
