@@ -1,14 +1,19 @@
-function [Vnew, Nnew] = subsampleTriangulation(V, F, N, varargin)
+function [Vnew, UVnew, Inew, Nnew] = subsampleTriangulation(V, F, N, varargin)
 %SUBSAMPLETRIANGULATION Subsamples the given triangulation using uniform
 %(non-random) barycentric subsampling.
-%  Vnew = subsampleTriangulation(V, F, N) - subsables the triangulation
+%  [Vnew, UVnew, Inew] = subsampleTriangulation(V, F, N) - subsables the triangulation
 %  given by vertices V and indices F. N is the number of subsamples per
 %  edge.
+%    Vnew is a Kx3 matrix containing the cartesian coordinates of the
+%      samples
+%    UVnew is a Kx2 matreix containing the barycnetric coordinates of the
+%      samples
+%    Inew is a K-vector containing the triangle indices of the samples
 %
-%  Vnew = subsampleTriangulation(V, F, N, tolerance) - additionaly specify
+%  [Vnew, UVnew, Inew] = subsampleTriangulation(V, F, N, tolerance) - additionaly specify
 %  a tolerance below that two points are considered equal, default to 1e-9;
 %
-%  [Vnew, Nnew] = subsampleTriangulation(V, F, N, Normals, ...) -
+%  [Vnew, UVnew, Inew, Nnew] = subsampleTriangulation(V, F, N, Normals, ...) -
 %    also compute per-vertex normals and stores them in Nnew.
 %
 % The used algorithm is quite simple and not very efficient. Since it
@@ -24,7 +29,7 @@ function [Vnew, Nnew] = subsampleTriangulation(V, F, N, varargin)
 
 tol = 1e-9;
 if not(isempty(varargin))
-  if nargout == 1
+  if nargout == 3
     tol = varargin{1};
   else
     if numel(varargin) > 1
@@ -33,7 +38,7 @@ if not(isempty(varargin))
   end
 end
 
-if nargout == 2
+if nargout == 4
   if isempty(varargin)
     error('Must specify per-vertex normals')
   else
@@ -55,7 +60,7 @@ T = reshape(T, 3, []);
 T = mat2cell(T, 3, 3 * ones(M, 1));
 T = cell2mat(T');
 
-if nargout == 2
+if nargout == 4
   NT = Normals(:, 1:3)';
   TN = [NT(:, F(:, 1)); NT(:, F(:, 2)); NT(:, F(:, 3))];
   TN = reshape(TN, 3, []);
@@ -77,7 +82,10 @@ a = [a1(valid)'; a2(valid)'; a3(valid)'];
 Vnew = T * a;
 Vnew = reshape(Vnew, 3, []);
 
-if nargout == 2
+TI = reshape(repmat(1:M, size(a, 2), 1), [], 1);
+UV = repmat(a(1:2, :)', M, 1);
+
+if nargout == 4
   Nnew = TN * a;
   Nnew = reshape(Nnew, 3, []);
 end
@@ -85,7 +93,10 @@ end
 % Remove dubplicate vertices
 [Vnew, IA, ~] = uniquetol(Vnew', tol, 'ByRows', true);
 
-if nargout == 2
+Inew = TI(IA);
+UVnew = UV(IA, :);
+
+if nargout == 4
   
   Nnew = Nnew(:, IA)';
   
