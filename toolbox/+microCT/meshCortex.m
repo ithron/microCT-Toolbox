@@ -43,6 +43,14 @@ oldPath = addpath(sprintf('%s/iso2mesh/', rootDir));
 r = max(size(cortexCenterDist))^3 / 2;
 c = size(cortexCenterDist) / 2;
 [V, F] = vol2restrictedtri(double(cortexCenterDist), -1e-9, c, r, 30, 2, 2, 50000);
+V = single(V);
+if length(V) <= intmax('uint16')
+  F = uint16(F);
+elseif length(V) <= intmax('uint32')
+  F = uint32(F);
+else
+  F = uint64(F);
+end
 
 path(oldPath);
 
