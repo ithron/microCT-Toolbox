@@ -55,7 +55,7 @@ end
 path(oldPath);
 
 % Undo scaling
-V = (V + 1) / scale - 0.5;
+V = V / scale + 0.5;
 V = [V(:, 2), V(:, 1), V(:, 3)];
 
 % Sample corticalThickness
