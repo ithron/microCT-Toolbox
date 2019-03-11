@@ -32,7 +32,7 @@ scale = 1;
 if nVox > 1e9
   scale = 1e9 / nVox;
   
-  cortexCenterDist = imresize3(cortexCenterDist, scale);
+  cortexCenterDist = imresize3(cortexCenterDist, scale, 'linear');
 end
 
 
@@ -59,6 +59,6 @@ V = (V + 1) / scale - 0.5;
 V = [V(:, 2), V(:, 1), V(:, 3)];
 
 % Sample corticalThickness
-C = interp3(corticalThickness, V(:, 1), V(:, 2), V(:, 3), 'cubic');
+C = interp3(corticalThickness, V(:, 1), V(:, 2), V(:, 3), 'linear');
 
 end
