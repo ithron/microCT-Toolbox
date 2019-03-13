@@ -82,7 +82,7 @@ a = [a1(valid)'; a2(valid)'; a3(valid)'];
 Vnew = T * a;
 Vnew = reshape(Vnew, 3, []);
 
-TI = reshape(repmat(1:M, size(a, 2), 1), [], 1);
+TI = reshape(repmat((1:M)', 1, size(a, 2)), [], 1);
 UV = repmat(a(1:2, :)', M, 1);
 
 if nargout == 4
