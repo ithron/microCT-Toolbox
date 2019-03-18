@@ -144,3 +144,5 @@ title('Dense Ct.BMD [mg/cc]')
 colorbar
 colormap hot
 ```
+
+![Example mesh output](https://github.com/ithron/microCT-Toolbox/raw/master/images/muCTperVertexCtThCtBMD.png)
