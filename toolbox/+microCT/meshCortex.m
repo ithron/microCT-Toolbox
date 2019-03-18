@@ -32,7 +32,7 @@ scale = 1;
 if nVox > 1e9
   scale = 1e9 / nVox;
   
-  cortexCenterDist = imresize3(cortexCenterDist, scale);
+  cortexCenterDist = imresize3(cortexCenterDist, scale, 'linear');
 end
 
 
@@ -42,15 +42,29 @@ oldPath = addpath(sprintf('%s/iso2mesh/', rootDir));
 % Mesh volume
 r = max(size(cortexCenterDist))^3 / 2;
 c = size(cortexCenterDist) / 2;
-[V, F] = vol2restrictedtri(double(cortexCenterDist), -1e-9, c, r, 30, 2, 2, 50000);
+[V, F] = vol2restrictedtri(double(cortexCenterDist), -1e-9, c, r, 30, 5, 0.1, 100000);
+V = single(V);
+if length(V) <= intmax('uint16')
+  F = uint16(F);
+elseif length(V) <= intmax('uint32')
+  F = uint32(F);
+else
+  F = uint64(F);
+end
+
+
+% Undo scaling
+V = V / scale + 0.5;
+V = [V(:, 2), V(:, 1), V(:, 3)];
+
+[V, F] = meshcheckrepair(V, F, 'dup');
+[V, F] = meshcheckrepair(V, F, 'isolated');
+[V, F] = meshcheckrepair(V, F, 'deep');
+[V, F] = meshcheckrepair(V, F, 'meshfix');
 
 path(oldPath);
 
-% Undo scaling
-V = (V + 1) / scale - 0.5;
-V = [V(:, 2), V(:, 1), V(:, 3)];
-
 % Sample corticalThickness
-C = interp3(corticalThickness, V(:, 1), V(:, 2), V(:, 3), 'cubic');
+C = interp3(corticalThickness, V(:, 1), V(:, 2), V(:, 3), 'linear');
 
 end
