@@ -91,7 +91,7 @@ if nargout == 4
 end
 
 % Remove dubplicate vertices
-[Vnew, IA, ~] = uniquetol(Vnew', tol, 'ByRows', true);
+[Vnew, IA] = microCT.filterClosePointsQuick(Vnew', tol);
 
 Inew = TI(IA);
 UVnew = UV(IA, :);
