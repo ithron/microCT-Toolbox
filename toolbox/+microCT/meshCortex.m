@@ -52,11 +52,17 @@ else
   F = uint64(F);
 end
 
-path(oldPath);
 
 % Undo scaling
 V = V / scale + 0.5;
 V = [V(:, 2), V(:, 1), V(:, 3)];
+
+[V, F] = meshcheckrepair(V, F, 'dup');
+[V, F] = meshcheckrepair(V, F, 'isolated');
+[V, F] = meshcheckrepair(V, F, 'deep');
+[V, F] = meshcheckrepair(V, F, 'meshfix');
+
+path(oldPath);
 
 % Sample corticalThickness
 C = interp3(corticalThickness, V(:, 1), V(:, 2), V(:, 3), 'linear');
