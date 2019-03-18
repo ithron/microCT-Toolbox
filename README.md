@@ -117,6 +117,8 @@ Since version 1.1.0 a dense sampling of the input volume is supported.
 2. For each sample: sample the volume along a profile orthogonal to the surface and average all valid BMD values to get a per-sample average BMD
 3. For each vertex: compute the weighted average of all sample values (BMD and thickness) inside adjacent triangles
 
+There is one function `microCT.perVertexCtThCtBMD()` that can be used to run all step automatically. To perform each step separately, have a look at [perVertexCtThCtBMD.m](toolbox/+microCT/perVertexCtThCtBMD.m).
+
 ### Example
 ```matlab
 % Using the output of the previous examples
@@ -128,10 +130,14 @@ patch('vertices', V, 'faces', F, 'edgeColor', 'none', 'facecolor', 'interp', 'fa
 light;
 axis equal off
 title('Dense Ct.Th. [voxels]')
+colorbar
+colormap hot
 
 subplot(1, 2, 2);
 patch('vertices', V, 'faces', F, 'edgeColor', 'none', 'facecolor', 'interp', 'facelighting', 'phong', 'FaceVertexCData', perVertexCtBMD);
 light;
 axis equal off
 title('Dense Ct.BMD [mg/cc]')
+colorbar
+colormap hot
 ```
