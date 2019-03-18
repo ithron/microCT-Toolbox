@@ -1,6 +1,24 @@
 function [Vnew, UVnew, Inew, Nnew, CtThnew] = genMeshSamples(F, V, CtTh)
-%GENMESHSAMPLES Summary of this function goes here
-%   Detailed explanation goes here
+%GENMESHSAMPLES Densly subsample the given mesh so that there is at least
+%one sample per voxel intersecting the mesh.
+%
+%  [Vnew, UVnew, Inew, Nnew, CtThnew] = genMeshSamples(F, V, CtTh)
+%
+%    F - Mx3 per triangle vertex index matrix
+%    V - Nx3 vertex position matrix
+%    CtTh - Nx1 vector of per-vertex cortical thickness values
+%
+%    Vnew - Kx3 matrix of sample positions
+%    UVnew - Kx2 matrix of barycentric sample positions
+%    Inew - Kx1 matrix of per-sample triangle index
+%    Nnew - Kx3 matrix of per-sample normals
+%    CtThnew - Kx1 vector of per-sample cortical thickness values
+%
+% This file is part of the 'microCT-Toolbox' project.
+% Author: Stefan Reinhold
+% Copyright: Copyright (C) 2019 Stefan Reinhold  -- All Rights Reserved.
+%            You may use, distribute and modify this code under the terms of
+%            the AFL 3.0 license; see LICENSE for full license details.
 
 TR = triangulation(double(F), double(V));
 
