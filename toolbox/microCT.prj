@@ -51,7 +51,6 @@
       <param.authnamewatermark />
       <param.email />
       <param.company />
-      <param.version />
       <param.output />
       <param.platforms />
       <param.exclude.filters />
