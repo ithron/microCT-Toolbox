@@ -124,12 +124,15 @@ There is one function `microCT.perVertexCtThCtBMD()` that can be used to run all
 % Using the output of the previous examples
 [perVertexCtTh, perVertexCtBMD] = microCT.perVertexCtThCtBMD(F, V, C, volume, CtTh);
 
+% Convert voxel scale to mm, assuming 30µm isotropic voxels
+perVertexCtTh = perVertexCtTh * 30e-3;
+
 % Display results
 subplot(1, 2, 1);
 patch('vertices', V, 'faces', F, 'edgeColor', 'none', 'facecolor', 'interp', 'facelighting', 'phong', 'FaceVertexCData', perVertexCtTh);
 light;
 axis equal off
-title('Dense Ct.Th. [voxels]')
+title('Dense Ct.Th. [mm]')
 colorbar
 colormap hot
 
