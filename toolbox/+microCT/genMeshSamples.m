@@ -2,7 +2,7 @@ function [Vnew, UVnew, Inew, Nnew, CtThnew] = genMeshSamples(F, V, CtTh)
 %GENMESHSAMPLES Summary of this function goes here
 %   Detailed explanation goes here
 
-TR = triangulation(F, V);
+TR = triangulation(double(F), double(V));
 
 N = TR.vertexNormal;
 
@@ -10,12 +10,14 @@ Subdivs = floor(microCT.meshTriangleMaxEdgeLength(F, V)) + 1;
 
 UniqueSubdivs = unique(Subdivs);
 
-Vnew = [];
-Nnew = [];
-UVnew = [];
-Inew = [];
+nSubdivs = length(UniqueSubdivs);
 
-for si=1:length(UniqueSubdivs)
+Vnew = cell(nSubdivs, 1);
+Nnew = cell(nSubdivs, 1);
+UVnew = cell(nSubdivs, 1);
+Inew = cell(nSubdivs, 1);
+
+parfor si=1:nSubdivs
   
   sdiv = UniqueSubdivs(si);
   FL = Subdivs == sdiv;
@@ -25,14 +27,20 @@ for si=1:length(UniqueSubdivs)
   
   Ii = FI(Ii);
   
-  Vnew = [Vnew; Vi];
-  Nnew = [Nnew; Ni];
-  UVnew = [UVnew; UVi];
-  Inew = [Inew; Ii];
+  Vnew{si} = Vi;
+  Nnew{si} = Ni;
+  UVnew{si} = UVi;
+  Inew{si} = Ii;
   
 end
 
-[Vnew, IA, ~] = uniquetol(Vnew, 0.5/max(abs(V(:))), 'ByRows', true);
+Vnew = cell2mat(Vnew);
+Nnew = cell2mat(Nnew);
+UVnew = cell2mat(UVnew);
+Inew = cell2mat(Inew);
+
+% [Vnew, IA, ~] = uniquetol(Vnew, 0.5/max(abs(V(:))), 'ByRows', true);
+[Vnew, IA] = microCT.filterClosePointsQuick(Vnew, 0.5);
 Nnew = Nnew(IA, :);
 UVnew = UVnew(IA, :);
 Inew = Inew(IA);
