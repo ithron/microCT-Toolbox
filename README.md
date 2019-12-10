@@ -44,7 +44,7 @@ This way the produced masks are of high quality, but on the downside the method 
 Also a smoothing operation is added to the endosteal mask creation process to make the endosteal surface less sensitive to trabecles branching from the cortex.
 
 **Beware that dependeing on the size of the input volume, this function may take a lot of time and use a lot of memory.
-For example segmenting a 3 giga voxel volume takes about 12 hours on a Intel(R) Core(TM) i7-8700K CPU @ 3.70GHz with 64GB of RAM and has a peak memory consuption of about 80GB.**
+For example segmenting a 3 giga voxel volume takes about 12 hours on a Intel(R) Core(TM) i7-8700K CPU @ 3.70GHz with 64GB of RAM and has a peak memory consumption of about 80GB.**
 
 ## Sparse Cortex Center and Cortical Thickness
 
