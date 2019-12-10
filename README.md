@@ -43,7 +43,7 @@ The implementation in this toolbox uses 3D operations on the complete volume, no
 This way the produced masks are of high quality, but on the downside the method is computationally more expensive.
 Also a smoothing operation is added to the endosteal mask creation process to make the endosteal surface less sensitive to trabecles branching from the cortex.
 
-**Beware that dependeing on the size of the input volume, this function may take a lot of time and use a log of memory.
+**Beware that dependeing on the size of the input volume, this function may take a lot of time and use a lot of memory.
 For example segmenting a 3 giga voxel volume takes about 12 hours on a Intel(R) Core(TM) i7-8700K CPU @ 3.70GHz with 64GB of RAM and has a peak memory consuption of about 80GB.**
 
 ## Sparse Cortex Center and Cortical Thickness
