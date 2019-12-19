@@ -1,4 +1,4 @@
-function varargout = segmentCortex(img, th1, th2, smoothing)
+function varargout = segmentCortex(img, th1, th2, smoothing, varargin)
 % SEGMENTCORTEX Computes a cortex segmentation mask
 %    [perioMask, endoMask] = segmentCortex(img, th1, th2, smoothing) -
 %      Computes a periosteal mask (perioMask) that includes everything inside
@@ -12,6 +12,12 @@ function varargout = segmentCortex(img, th1, th2, smoothing)
 %    cortexMask = segmentCortex(img, th1, th2, smoothing) - only computes
 %      the cortex mask
 %
+%    [perioMask, endoMask] = segmentCortex(img, th1, th2, smoothing, type)
+%    cortexMask = segmentCortex(img, th1, th2, smoothing, type)
+%      -- same as above, but scanenr tpye can be selected. `microCT` (default)
+%      micro CT configuration, `XCT` XtremeCT (or HR-pQCT) scanner
+%      configuation.
+%
 % This file is part of the 'microCT-Toolbox' project.
 % Author: Stefan Reinhold
 % Copyright: Copyright (C) 2019 Stefan Reinhold  -- All Rights Reserved.
@@ -19,13 +25,32 @@ function varargout = segmentCortex(img, th1, th2, smoothing)
 %            the AFL 3.0 license; see LICENSE for full license details.
 
 
-padding = 32;
+if not(isempty(varargin))
+  if not(strcmpi(varargin{1}, 'microCT') || strcmpi(varargin{1}, 'XCT'))
+    error(['Invalid type: "' varargin{1} '"')
+  else
+    type = varargin{1}
+  end
+else
+  type = 'microCT';
+end
+
+if strcmpi(type, 'XCT')
+  padding = 13;
+  medFiltSize = 3;
+  se1Radius = 11;
+  se2Radius = 5;
+elseif strcmpi(type, 'microCT')
+  padding = 32;
+  medFiltSize = 7;
+  se1Radius = 30;
+  se2Radius = 10;
+end
+
 paddedImg = padarray(img, padding * ones(1, 3));
 
-medFiltSize = 7;
-
-se1 = strel('sphere', 30);
-se2 = strel('sphere', 10);
+se1 = strel('sphere', se1Radius);
+se2 = strel('sphere', se2Radius);
 
 % Compute periosteal mask
 perioMask = paddedImg > th1;
