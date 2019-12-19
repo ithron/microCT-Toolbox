@@ -27,9 +27,9 @@ function varargout = segmentCortex(img, th1, th2, smoothing, varargin)
 
 if not(isempty(varargin))
   if not(strcmpi(varargin{1}, 'microCT') || strcmpi(varargin{1}, 'XCT'))
-    error(['Invalid type: "' varargin{1} '"')
+    error(['Invalid type: "' varargin{1} '"']);
   else
-    type = varargin{1}
+    type = varargin{1};
   end
 else
   type = 'microCT';
