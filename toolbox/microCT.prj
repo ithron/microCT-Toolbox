@@ -7,7 +7,7 @@
     <param.summary>A toolbox for working with microCT volumes</param.summary>
     <param.description>This toolbox currently contains tools for segmenting and meshing bone cortices in micro CT volumes</param.description>
     <param.screenshot>/data1/sreinhold/src/microCT-Toolbox/images/muCTSegmentationExample.png</param.screenshot>
-    <param.version>1.1.0</param.version>
+    <param.version>1.2.0</param.version>
     <param.output>${PROJECT_ROOT}/microCT.mltbx</param.output>
     <param.products.name>
       <item>MATLAB</item>
