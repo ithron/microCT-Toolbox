@@ -26,11 +26,13 @@ end
 
 
 nVox = numel(cortexCenterDist);
-
-% Scale voluem if too large
+nBytes = (isa(cortexCenterDist, 'single')) * 4 + (isa(cortexCenterDist, 'double')) * 8;
+% Scale voluem if too large (there seems to be a 2GB limit)
+maxN = 2*1024^3 / nBytes;
 scale = 1;
-if nVox > 1e9
-  scale = 1e9 / nVox;
+if nVox > maxN
+  scale = nthroot(maxN / nVox, 3);
+  scale = min(floor(size(cortexCenterDist) * scale) ./ size(cortexCenterDist));
   
   cortexCenterDist = imresize3(cortexCenterDist, scale, 'linear');
 end
@@ -42,7 +44,7 @@ oldPath = addpath(sprintf('%s/iso2mesh/', rootDir));
 % Mesh volume
 r = max(size(cortexCenterDist))^3 / 2;
 c = size(cortexCenterDist) / 2;
-[V, F] = vol2restrictedtri(double(cortexCenterDist), -1e-9, c, r, 30, 5, 0.1, 500000);
+[V, F] = vol2restrictedtri(cortexCenterDist, -1e-9, c, r, 30, 5, 0.1, 500000);
 V = single(V);
 if length(V) <= intmax('uint16')
   F = uint16(F);
