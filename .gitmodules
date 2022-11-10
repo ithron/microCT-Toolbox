@@ -1,4 +1,4 @@
 [submodule "toolbox/+microCT/iso2mesh"]
 	path = toolbox/+microCT/iso2mesh
 	url = https://github.com/ithron/iso2mesh.git
-  branch = fix68_saveinr_single
+	branch = master
